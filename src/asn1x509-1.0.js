@@ -77,7 +77,7 @@ if (typeof KJUR.asn1 == "undefined" || !KJUR.asn1) KJUR.asn1 = {};
  * <li>{@link KJUR.asn1.x509.IssuerAltName}</li>
  * </ul>
  * NOTE1: Please ignore method summary and document of this namespace. This caused by a bug of jsdoc2.<br/>
- * NOTE2: SubjectAltName and IssuerAltName extension were supported since 
+ * NOTE2: SubjectAltName and IssuerAltName extension were supported since
  * jsrsasign 6.2.3 asn1x509 1.0.19.<br/>
  * @name KJUR.asn1.x509
  * @namespace
@@ -138,7 +138,7 @@ KJUR.asn1.x509.Certificate = function(params) {
      */
     this.sign = function() {
         this.asn1SignatureAlg = this.asn1TBSCert.asn1SignatureAlg;
-	
+
         var sig = new KJUR.crypto.Signature({alg: this.asn1SignatureAlg.nameAlg});
         sig.init(this.prvKey);
         sig.updateHex(this.asn1TBSCert.getEncodedHex());
@@ -195,8 +195,8 @@ KJUR.asn1.x509.Certificate = function(params) {
      */
     this.getPEMString = function() {
 	var pemBody = hextob64nl(this.getEncodedHex());
-        return "-----BEGIN CERTIFICATE-----\r\n" + 
-	    pemBody + 
+        return "-----BEGIN CERTIFICATE-----\r\n" +
+	    pemBody +
 	    "\r\n-----END CERTIFICATE-----\r\n";
     };
 
@@ -407,7 +407,7 @@ KJUR.asn1.x509.TBSCertificate = function(params) {
      * @param {name} name name of X.509v3 Extension object
      * @param {Array} extParams parameters as argument of Extension constructor.
      * @description
-     * This method adds a X.509v3 extension specified by name 
+     * This method adds a X.509v3 extension specified by name
      * and extParams to internal extension array of X.509v3 extension objects.
      * Here is supported names of extension:
      * <ul>
@@ -544,7 +544,7 @@ YAHOO.lang.extend(KJUR.asn1.x509.Extension, KJUR.asn1.ASN1Object);
 KJUR.asn1.x509.Extension.appendByNameToArray = function(name, extParams, a) {
     var _lowname = name.toLowerCase(),
 	_KJUR_asn1_x509 = KJUR.asn1.x509;
-    
+
     if (_lowname == "basicconstraints") {
         var extObj = new _KJUR_asn1_x509.BasicConstraints(extParams);
         a.push(extObj);
@@ -621,7 +621,7 @@ KJUR.asn1.x509.KeyUsage = function(params) {
 	    for (var i = 0; i < names.length; i++) {
 		for (var j = 0; j < _KEYUSAGE_NAME.length; j++) {
 		    if (names[i] === _KEYUSAGE_NAME[j]) {
-			s = s.substring(0, j) + '1' + 
+			s = s.substring(0, j) + '1' +
 			    s.substring(j + 1, s.length);
 		    }
 		}
@@ -690,7 +690,7 @@ YAHOO.lang.extend(KJUR.asn1.x509.BasicConstraints, KJUR.asn1.x509.Extension);
  * DistributionPointName ::= CHOICE {
  *      fullName                [0]     GeneralNames,
  *      nameRelativeToCRLIssuer [1]     RelativeDistinguishedName }
- * 
+ *
  * ReasonFlags ::= BIT STRING {
  *      unused                  (0),
  *      keyCompromise           (1),
@@ -1145,8 +1145,8 @@ KJUR.asn1.x509.CRL = function(params) {
      */
     this.getPEMString = function() {
         var pemBody = hextob64nl(this.getEncodedHex());
-        return "-----BEGIN X509 CRL-----\r\n" + 
-	    pemBody + 
+        return "-----BEGIN X509 CRL-----\r\n" +
+	    pemBody +
 	    "\r\n-----END X509 CRL-----\r\n";
     };
 
@@ -1215,7 +1215,7 @@ KJUR.asn1.x509.TBSCertList = function(params) {
      * tbsc.setSignatureAlgByParam({'name': 'SHA1withRSA'});
      */
     this.setSignatureAlgByParam = function(algIdParam) {
-        this.asn1SignatureAlg = 
+        this.asn1SignatureAlg =
 	    new _KJUR_asn1_x509.AlgorithmIdentifier(algIdParam);
     };
 
@@ -1442,8 +1442,8 @@ KJUR.asn1.x509.X500Name = function(params) {
      * @function
      * @param {String} dnStr distinguished name by string (ex. /C=US/O=aaa)
      * @description
-     * Sets distinguished name by string. 
-     * dnStr must be formatted as 
+     * Sets distinguished name by string.
+     * dnStr must be formatted as
      * "/type0=value0/type1=value1/type2=value2...".
      * No need to escape a slash in an attribute value.
      * @example
@@ -1555,7 +1555,7 @@ YAHOO.lang.extend(KJUR.asn1.x509.X500Name, KJUR.asn1.ASN1Object);
  * @return {String} distinguished name string in LDAP(RFC 2253) format (ex. O=test,C=US)
  * @since jsrsasign 6.2.2 asn1x509 1.0.18
  * @description
- * This static method converts a distinguished name string in OpenSSL oneline 
+ * This static method converts a distinguished name string in OpenSSL oneline
  * format to LDAP(RFC 2253) format.
  * @see <a href="https://github.com/kjur/jsrsasign/wiki/NOTE-distinguished-name-representation-in-jsrsasign">jsrsasign wiki: distinguished name string difference between OpenSSL oneline and LDAP(RFC 2253)</a>
  * @example
@@ -1584,7 +1584,7 @@ KJUR.asn1.x509.X500Name.onelineToLDAP = function(s) {
  * @return {String} distinguished name string in OpenSSL oneline format (ex. /C=US/O=test)
  * @since jsrsasign 6.2.2 asn1x509 1.0.18
  * @description
- * This static method converts a distinguished name string in 
+ * This static method converts a distinguished name string in
  * LDAP(RFC 2253) format to OpenSSL oneline format.
  * @see <a href="https://github.com/kjur/jsrsasign/wiki/NOTE-distinguished-name-representation-in-jsrsasign">jsrsasign wiki: distinguished name string difference between OpenSSL oneline and LDAP(RFC 2253)</a>
  * @example
@@ -1938,7 +1938,7 @@ KJUR.asn1.x509.SubjectPublicKeyInfo = function(params) {
 		    new _AlgorithmIdentifier({'name': 'dsa',
 					      'asn1params': asn1Params});
 		var pubInt = new _DERInteger({'bigint': key.y});
-		this.asn1SubjPKey = 
+		this.asn1SubjPKey =
 		    new _DERBitString({'hex': '00' + pubInt.getEncodedHex()});
 	    }
 	} catch(ex) {};
@@ -2152,7 +2152,7 @@ KJUR.asn1.x509.GeneralName = function(params) {
 	_ASN1Object = _KJUR_asn1.ASN1Object,
 	_X500Name = _KJUR_asn1.x509.X500Name,
 	_pemtohex = pemtohex;
-	
+
     this.explicit = false;
 
     this.setByParam = function(params) {
@@ -2330,7 +2330,7 @@ YAHOO.lang.extend(KJUR.asn1.x509.GeneralNames, KJUR.asn1.ASN1Object);
  * DistributionPointName ::= CHOICE {
  *      fullName                [0]     GeneralNames,
  *      nameRelativeToCRLIssuer [1]     RelativeDistinguishedName }
- * 
+ *
  * ReasonFlags ::= BIT STRING {
  *      unused                  (0),
  *      keyCompromise           (1),
@@ -2390,7 +2390,7 @@ YAHOO.lang.extend(KJUR.asn1.x509.DistributionPointName, KJUR.asn1.ASN1Object);
  * DistributionPointName ::= CHOICE {
  *      fullName                [0]     GeneralNames,
  *      nameRelativeToCRLIssuer [1]     RelativeDistinguishedName }
- * 
+ *
  * ReasonFlags ::= BIT STRING {
  *      unused                  (0),
  *      keyCompromise           (1),
@@ -2576,6 +2576,7 @@ KJUR.asn1.x509.OID = new function(params) {
         'secp256r1':            '1.2.840.10045.3.1.7',
         'secp256k1':            '1.3.132.0.10',
         'secp384r1':            '1.3.132.0.34',
+        'secp521r1':            '1.3.132.0.35',
 
         'pkcs5PBES2':           '1.2.840.113549.1.5.13',
         'pkcs5PBKDF2':          '1.2.840.113549.1.5.12',
@@ -2857,4 +2858,3 @@ KJUR.asn1.x509.X509Util.newCertPEM = function(param) {
 
     return cert.getPEMString();
 };
-

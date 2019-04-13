@@ -31,7 +31,7 @@ function doSign() {
   sig.init({d: prvkey, curve: curve});
   sig.updateString(msg1);
   var sigValueHex = sig.sign();
-  
+
   f1.sigval1.value = sigValueHex;
 }
 
@@ -64,10 +64,10 @@ function doVerify() {
           <h1 id="project_title">ECDSA sample</h1>
           <h2 id="project_tagline">generating EC keypair, signing and verifying ECDSA signature</h2>
 
-          <a href="https://kjur.github.io/jsrsasign/">TOP</a> | 
-          <a href="https://github.com/kjur/jsrsasign/tags/" target="_blank">DOWNLOADS</a> | 
-          <a href="https://github.com/kjur/jsrsasign/wiki#programming-tutorial">TUTORIALS</a> | 
-          <a href="https://kjur.github.io/jsrsasign/api/" target="_blank">API REFERENCE</a> | 
+          <a href="https://kjur.github.io/jsrsasign/">TOP</a> |
+          <a href="https://github.com/kjur/jsrsasign/tags/" target="_blank">DOWNLOADS</a> |
+          <a href="https://github.com/kjur/jsrsasign/wiki#programming-tutorial">TUTORIALS</a> |
+          <a href="https://kjur.github.io/jsrsasign/api/" target="_blank">API REFERENCE</a> |
           <a href="https://kjur.github.io/jsrsasign/index.html#demo" target="_blank">DEMOS</a> | 
         </header>
     </div>
@@ -79,11 +79,12 @@ function doVerify() {
 <!-- now editing -->
 <form name="form1">
 <h4>(Step1) choose supported EC curve name and generate key pair</h4>
-ECC curve name: 
+ECC curve name:
 <select name="curve1">
 <option value="secp256r1">secp256r1 (= NIST P-256, P-256, prime256v1)
 <option value="secp256k1">secp256k1
 <option value="secp384r1">secp384r1 (= NIST P-384, P-384)
+<option value="secp521r1">secp521r1 (= NIST P-521, P-521)
 </select><br/>
 <input type="button" value="generate EC key pair" onClick="doGenerate();"/><br/>
 <p>
@@ -94,13 +95,13 @@ EC public key (hex): <input type="text" name="pubkey1" value="" size="100"/><br/
 <!-- ============================================================== -->
 
 <h4>(Step2) Sign message</h4>
-Signature Algorithm: 
+Signature Algorithm:
 <select name="sigalg1">
 <option value="SHA256withECDSA">SHA256withECDSA
 <option value="SHA1withECDSA">SHA1withECDSA
 </select><br/>
 
-Message string to be signed: 
+Message string to be signed:
 <input type="text" name="msg1" value="aaa" size="100"/><br/>
 <input type="button" value="sign message" onClick="doSign();"/><br/>
 <p>
@@ -141,7 +142,7 @@ ASN1 OID: prime256v1
 
 Please delete colons ':' and new lines for the private key and the public key
 and fill "EC private key (hex)" and "EC public key (hex)" in above form and
-choose proper curve name, 
+choose proper curve name,
 then you can use them for signing and verification.
 
 <!-- now editing -->

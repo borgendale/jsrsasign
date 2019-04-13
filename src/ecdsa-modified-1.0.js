@@ -2,7 +2,7 @@
  */
 /*
  * ecdsa-modified.js - modified Bitcoin.ECDSA class
- * 
+ *
  * Copyright (c) 2013-2017 Stefan Thomas (github.com/justmoon)
  *                         Kenji Urushima (kenji.urushima@gmail.com)
  * LICENSE
@@ -38,6 +38,7 @@ if (typeof KJUR.crypto == "undefined" || !KJUR.crypto) KJUR.crypto = {};
  * <li>secp256r1, NIST P-256, P-256, prime256v1 (*)</li>
  * <li>secp256k1 (*)</li>
  * <li>secp384r1, NIST P-384, P-384 (*)</li>
+ * <li>secp521r1, NIST P-521, P-521 (*)</li>
  * </ul>
  * </p>
  */
@@ -77,7 +78,7 @@ KJUR.crypto.ECDSA = function(params) {
 		}
 	    }
 	}
-	
+
 	return R;
     };
 
@@ -665,7 +666,7 @@ KJUR.crypto.ECDSA.parseSigHex = function(sigHex) {
     var p = KJUR.crypto.ECDSA.parseSigHexInHexRS(sigHex);
     var biR = new BigInteger(p.r, 16);
     var biS = new BigInteger(p.s, 16);
-    
+
     return {'r': biR, 's': biS};
 };
 
@@ -697,7 +698,7 @@ KJUR.crypto.ECDSA.parseSigHexInHexRS = function(sigHex) {
     var a = _getChildIdx(sigHex, 0);
     if (a.length != 2)
 	throw "number of signature ASN.1 sequence elements seem wrong";
-    
+
     // 3. Integer check
     var iTLV1 = a[0];
     var iTLV2 = a[1];
@@ -709,7 +710,7 @@ KJUR.crypto.ECDSA.parseSigHexInHexRS = function(sigHex) {
     // 4. getting value
     var hR = _getV(sigHex, iTLV1);
     var hS = _getV(sigHex, iTLV2);
-    
+
     return {'r': hR, 's': hS};
 };
 
@@ -814,10 +815,10 @@ KJUR.crypto.ECDSA.biRSSigToASN1Sig = function(biR, biS) {
  * @function
  * @static
  * @param {String} s curve name (ex. P-256) or hexadecimal OID value (ex. 2a86...)
- * @return {String} normalized EC curve name (ex. secp256r1) 
- * @since jsrsasign 7.1.0 ecdsa-modified 1.1.0 
+ * @return {String} normalized EC curve name (ex. secp256r1)
+ * @since jsrsasign 7.1.0 ecdsa-modified 1.1.0
  * @description
- * This static method returns normalized EC curve name 
+ * This static method returns normalized EC curve name
  * which is supported in jsrsasign
  * from curve name or hexadecimal OID value.
  * When curve is not supported in jsrsasign, this method returns null.
@@ -831,9 +832,10 @@ KJUR.crypto.ECDSA.getName = function(s) {
     if (s === "2a8648ce3d030107") return "secp256r1"; // 1.2.840.10045.3.1.7
     if (s === "2b8104000a") return "secp256k1"; // 1.3.132.0.10
     if (s === "2b81040022") return "secp384r1"; // 1.3.132.0.34
+    if (s === "2b81040023") return "secp521r1"; // 1.3.132.0.35
     if ("|secp256r1|NIST P-256|P-256|prime256v1|".indexOf(s) !== -1) return "secp256r1";
     if ("|secp256k1|".indexOf(s) !== -1) return "secp256k1";
     if ("|secp384r1|NIST P-384|P-384|".indexOf(s) !== -1) return "secp384r1";
+    if ("|secp521r1|NIST P-521|P-521|".indexOf(s) !== -1) return "secp521r1";
     return null;
 };
-

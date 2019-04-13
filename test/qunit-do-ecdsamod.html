@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
           "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -130,7 +130,7 @@ test("k6.sig.aaa.1 secp384r1 sha256", function() {
 test("generate ECC key for secp256r1 curve", function() {
   var ec = new KJUR.crypto.ECDSA({"curve": "secp256r1"});
   var keypair = ec.generateKeyPairHex();
-  
+
   expect(2);
   equal(keypair['ecprvhex'].length, 256 / 4, "private key hexstr length");
   equal(keypair['ecpubhex'].length, (256 / 4) * 2 + 2, "public key hexstr length");
@@ -143,6 +143,15 @@ test("generate ECC key for secp384r1 curve", function() {
   expect(2);
   equal(keypair['ecprvhex'].length, 384 / 4, "private key hexstr length");
   equal(keypair['ecpubhex'].length, (384 / 4) * 2 + 2, "public key hexstr length");
+});
+
+test("generate ECC key for secp521r1 curve", function() {
+  var ec = new KJUR.crypto.ECDSA({"curve": "secp521r1"});
+  var keypair = ec.generateKeyPairHex();
+
+  expect(2);
+  equal(keypair['ecprvhex'].length, Math.floor(521 / 4), "private key hexstr length");
+  equal(keypair['ecpubhex'].length, Math.floor((521 / 4) * 2 + 2), "public key hexstr length");
 });
 
 test("key generation, signing and verification for secp256r1 curve", function() {
@@ -215,7 +224,7 @@ test("readCertPubKeyHex k1", function() {
 
 });
 </script>
-  
+
 </head>
 <body>
 <div id="qunit"></div>
@@ -228,15 +237,14 @@ besides some other curves are pre-defined.
 </p>
 
 <p>
-<a href="index.html">INDEX</a> | 
-ECC related QUnit test pages: 
-<a href="qunit-do-crypto.html">crypto.js</a> | 
-<a href="qunit-do-crypto-ecdsa.html">crypto.js Signature class for ECDSA</a> | 
-<a href="qunit-do-ecdsamod.html">ecdsa-modified.js</a> | 
-<a href="qunit-do-ecdsamod-unsupport.html">ecdsa-modified unsupported curve</a> | 
-<a href="qunit-do-ecparam.html">ecparam.js</a> | 
+<a href="index.html">INDEX</a> |
+ECC related QUnit test pages:
+<a href="qunit-do-crypto.html">crypto.js</a> |
+<a href="qunit-do-crypto-ecdsa.html">crypto.js Signature class for ECDSA</a> |
+<a href="qunit-do-ecdsamod.html">ecdsa-modified.js</a> |
+<a href="qunit-do-ecdsamod-unsupport.html">ecdsa-modified unsupported curve</a> |
+<a href="qunit-do-ecparam.html">ecparam.js</a> |
 </p>
 
 </body>
 </html>
-
